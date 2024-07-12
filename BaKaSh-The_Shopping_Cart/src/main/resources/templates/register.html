@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section style="background-color: rgb(76, 175, 80) !important;">
+		<div class="container mt-5 p-5">
+			<div class="row">
+				<!-- This grid for image -->
+				<div class="col-md-6 p-5">
+					<img alt="" src="/img/forRegister.png" width="110%"
+						height="420px">
+				</div>
+				<!-- This grid for login page  -->
+				<div class="col-md-6 p-5">
+					<div class="half-black">
+					<div class="wrapperR">
+							<div>
+								<h2 style="text-align: center;">
+									Welcome To 
+								</h2>
+								<form action="/saveUser" method="post" enctype="multipart/form-data">
+									<h1>Registration😊</h1>
+                                  
+                                  <th:block th:if="${session.succMsg}">
+								<p class="text-primary  text-center fw-bold">[[${session.succMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+
+							<th:block th:if="${session.errorMsg}">
+								<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+                                   
+									<div class="input-box ">
+										<input type="text" placeholder="Full Name" name="name" required>
+										<i class="fa-solid fa-user"></i>
+									</div>
+									
+									<div class="input-box ">
+										<input type="text" placeholder="Email" name="email" required>
+										<i class="fa-solid fa-envelope"></i>
+									
+									</div>
+
+									<div class="input-box">
+										<input type="number" placeholder="Mobile Number" name="mobileNumber"
+											required> <i class="fa-solid fa-phone"></i>
+									</div>
+									
+									<div class="input-box">
+										<input type="text" placeholder="Address" name="address"
+											required> <i class="fa-solid fa-location-dot"></i>
+									</div>
+									<div class="input-box">
+										<input type="password" placeholder="Password" name="password"
+											required> <i class="fa-solid fa-lock"></i>
+									</div>
+									
+									<div class="input-box">
+										<input type="password" placeholder="Confirm Password" name="cpassword"
+											required> <i class="fa-solid fa-lock"></i>
+									</div>
+									
+									<div class="mb-3">
+										<input type="file" placeholder="Profile image" name="img"
+											required>
+									</div>
+									
+									
+									 <p class="text-primary">We respect your privacy and will never share your personal information with third parties without your consent.</p>
+								
+									
+									<button type="submit" class="btnn">Register</button>
+									<div class="register-link">
+										
+									</div>
+								</form>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

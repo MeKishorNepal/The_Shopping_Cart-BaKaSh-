@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+
+		<div class="container card-sh "
+			style="margin-top: 70px; margin-bottom: 100px; width: 70%;">
+
+
+			<div class="col-md-12 p-5" style="background-color: rgb(240,56, 99);">
+				<div class="row">
+
+				<!-- 	//message for success and failure when try to add product in cart -->
+					<th:block th:if="${session.succMsg}">
+						<p class="text-primary  text-center fw-bold">[[${session.succMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block>
+
+					<th:block th:if="${session.errorMsg}">
+						<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block>
+
+                    <!--  //ends here -->
+
+
+					<div class="col-md-6 text-end " >
+						<img alt="" th:src="@{'/img/product_img/' + ${p.image}}"
+							width="330px" height="400px">
+					</div>
+					<div class="col-md-6">
+						<p class="fs-3">[[${p.title}]]</p>
+						<p>
+							<span class="fw-bold">Description:</span><br>[[${p.description}]]
+
+						</p>
+						<p>
+							<span class="fw-bold">Product Details:</span><br> Status:
+                           
+                          <!--  Checking that stock is available or not -->
+							<th:block th:if="${p.stock>0}">
+								<span class="badge bg-success">Available</span>
+							</th:block>
+
+							<th:block th:unless="${p.stock>0}">
+								<span class="badge bg-warning">out of stock</span>
+							</th:block>
+							
+							<!-- checking ends here -->
+
+							<br> Category: [[${p.category}]]<br>Policy: 7 days
+							Replacement and return
+						</p>
+						<p class="fs-5 fw-bold">
+							Price:&nbsp; &nbsp; &nbsp; &nbsp;<i class="fas fa-rupee-sign"></i>
+							[[${p.discountPrice}]] <span
+								class="fs-6 text-decoration-line-through text-secondary">[[${p.price}]]</span>
+							<span class="fs-6 text-success">[[${p.discount}]]% off</span>
+						</p>
+
+						<div class="row">
+							<div class="col-md-4 text-primary text-center p-2">
+								<i class="fa-solid fa-money-bill-wave fa-2x"></i>
+								<p>Cash On Delivery</p>
+							</div>
+
+
+
+							<div class="col-md-4 text-primary text-center p-2">
+								<i class="fa-solid fa-rotate-left fa-2x"></i>
+								<p>Return Available</p>
+
+							</div>
+
+
+							<div class="col-md-4 text-primary text-center p-2">
+								<i class="fa-solid fa-truck  fa-2x"></i>
+								<P>Home delivery</p>
+							</div>
+						</div>
+
+                        <!-- Here we check that if user without login try to add product 
+                        in cart then redirect to login page and if user not null then
+                        we pass product id and user id for further operation like store data 
+                        in database and show them success message . -->
+                        
+						<th:block th:if="${p.stock>0}">
+							<th:block th:if="${user==null}">
+								<a href="/signin" class="btn btn-success col-md-12"> Add to
+									Cart</a>
+							</th:block>
+
+							<th:block th:unless="${user==null}">
+								<a th:href="@{'/user/addCart?pid='+${p.id}+'&uid='+${user.id}}"
+									class="btn btn-success col-md-12"> Add to Cart</a>
+							</th:block>
+
+						</th:block>
+						
+						<!-- ends here -->
+
+						<th:block th:unless="${p.stock>0}">
+							<a href="/login" class="btn text-white btn-warning col-md-12">
+								out of stock </a>
+						</th:block>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

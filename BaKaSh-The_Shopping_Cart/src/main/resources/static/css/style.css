@@ -1,0 +1,565 @@
+@charset "ISO-8859-1";
+
+
+@import url('https://fonts.cdnfonts.com/css/poppins?styles=20395');
+
+
+                
+                
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif !important;
+                                                                                           
+  background-color: rgb(240, 56, 99);
+}
+/* slide section */
+
+.slide-main {
+
+  height: 100vh;
+  background-size: contain;
+}
+
+.new-arrival {
+  background-color: rgba(222, 219, 219, 0.788) !important;
+  padding-inline-start: 20px;
+  padding-block: 14px;
+  width: 30%;
+  height: 300px;
+  position: absolute;
+  margin-top: 150px;
+  margin-left: 30px;
+  border-radius: 10px;
+}
+
+.new-arrival p {
+  font-weight: 590;
+  font-size: 0.98rem;
+  margin-top: 7px;
+}
+
+.new-arrival h2 {
+  font-size: 1.8rem;
+  color: rgb(48, 68, 254);
+}
+
+.hero-btn {
+  margin-top: 15px;
+  width: 130px;
+  height: 48px;
+  border: none;
+  outline: none;
+  color: white;
+  border-radius: 10px;
+  background-color: rgb(233, 117, 87);
+}
+
+/* Discount section */
+.next {
+  margin-top: 25px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+.next h1{
+  color: blue;
+  font-size: 35px;
+}
+.next p{
+  margin-top: 8px;
+  font-weight: 520;
+  font-size: 20px;
+}
+
+ body{
+  font-family: arial;
+ }
+ .main{
+     margin: 2%;
+   
+ }
+ 
+ .card11{
+      width: 25%;
+      display: inline-block;
+      box-shadow: 2px 2px 20px black;
+      border-radius: 7px; 
+      margin: 2%;
+      height:450px;
+      margin-left :80px;
+    
+     }
+  
+
+ .image1 img{
+   width: 100%;
+   height: auto;
+   border-top-right-radius: 5px;
+   border-top-left-radius: 5px;
+   
+ 
+  
+  }
+ 
+ .title{
+  
+   text-align: center;
+   padding: 10px;
+   
+  }
+ 
+ h1{
+   font-size: 20px;
+  }
+ 
+ .des{
+   padding: 3px;
+   text-align: center;
+   padding-top: 10px;
+  
+ }
+.product-btn{
+   margin-top: 40px;
+   margin-bottom: 10px;
+   background-color: white;
+   border: 1px solid black;
+   border-radius: 5px;
+   padding:10px;
+ }
+ .product-btn:hover{
+   background-color: black !important;
+   color: white;
+   transition: .5s;
+   cursor: pointer;
+ }
+ 
+ /* product card section */
+
+ .head{
+  text-align: center;
+
+ }
+
+
+
+body{
+ font-family: arial;
+}
+.product-main{
+
+ margin: 2%;
+ 
+}
+
+/* for home page products */
+
+.product-card1{
+     width: 18%;
+     display: inline-block;
+     box-shadow: 2px 2px 20px black;
+     border-radius: 5px; 
+     
+     height: 440px;
+     padding:6px;
+     flex-wrap: wrap;
+     margin-inline:35px;
+     background-color: rgb(244, 126, 255);
+    }
+
+.product-card{
+     width: 85%;
+     display: inline-block;
+     box-shadow: 2px 2px 20px black;
+     border-radius: 5px; 
+     margin:5px;
+     height: 380px;
+     margin-left:35px;
+     flex-wrap: wrap;
+     margin-inline:35px;
+     background-color: rgb(244, 126, 255);
+    }
+
+.image img{
+  width: 100%;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  height:190px;
+  
+
+ 
+ }
+
+.title{
+ 
+  text-align: center;
+  padding: 10px;
+  
+ }
+
+h1{
+  font-size: 22px;
+  margin-top: 8px;
+ }
+
+.des{
+  padding: 3px;
+  text-align: center;
+  padding-top: 10px;
+ 
+}
+.prices{
+  display: flex;
+  margin-top: 15px;;
+  justify-content: space-between;
+  margin-left: 5px;
+  margin-right: 5px;
+
+}
+.product-btn{
+  background-color: aqua;
+  border: 2px solid black;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  margin-button:5px;
+  
+}
+.content{
+  padding-inline:10px;
+}
+
+.Stroke{
+  text-decoration: line-through;
+  color:brown;
+}
+
+
+  
+
+  .product-btn {
+    margin-top: 18px !important;
+    
+  }
+ /* css for login page */
+
+    
+    .wrapper {
+        width: 400px;
+        background: transparent;
+        border: 2px solid rgba(242, 223, 223, 0.2);
+        backdrop-filter: blur(200px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        color:black !important;
+        border-radius: 20px;
+        margin: 20px auto; /* Adjusted margin */
+        padding: 30px;
+        margin-top: 10px !important;
+    }
+   
+    
+    
+    .wrapper h1 {
+        font-size: 25px;
+        text-align: center;
+    }
+    
+    .input-box {
+        position: relative;
+        width: 100%;
+        margin: 20px 0;
+    }
+    
+    .input-box input {
+        width: calc(100% - 6px); /* Adjusted width */
+        height: 50px;
+        background: transparent;
+        border: none;
+        outline: none;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        border-radius: 40px;
+        font-size: 16px;
+        color: #fff;
+        padding: 0 20px;
+        
+    }
+    
+    .input-box input::placeholder {
+        color: black;
+    }
+    
+    .input-box i {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+    }
+    
+    .btnn {
+        width: 100%;
+        height: 60px;
+        background-color: #fff;
+        border: none;
+        outline: none;
+        border-radius: 40px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+        font-weight: 600;
+    }
+    .btnn:hover{
+       background-color:green !important;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
+    }
+    
+    .remember-forgot {
+        display: flex;
+        justify-content: space-between;
+        font-size: 15.5px;
+        margin: 15px 0;
+    }
+    
+    .remember-forgot label input {
+        accent-color: #fff;
+        margin-right: 3px;
+    }
+    
+    .remember-forgot a {
+        color: #fff;
+        text-decoration: none;
+    }
+    
+    .remember-forgot a:hover {
+        text-decoration: underline;
+    }
+    
+    .register-link {
+        font-size: 15.5px;
+        text-align: center;
+        margin: 20px 0 15px;
+    }
+    
+    .register-link p a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    
+    .register-link p a:hover {
+        text-decoration: underline;
+    }
+ /* login page css end here */
+ 
+ /*css for register is here  */
+ 
+   .wrapperR {
+        width: 400px;
+        background: transparent;
+        border: 2px solid rgba(242, 223, 223, 0.2);
+        backdrop-filter: blur(200px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        color:black !important;
+        border-radius: 20px;
+        margin: 20px auto; /* Adjusted margin */
+        padding: 30px;
+        margin-top: 2px !important;
+    }
+   
+    
+    
+    .wrapperR h1 {
+        font-size: 25px;
+        text-align: center;
+    }
+    
+    .input-box {
+        position: relative;
+        width: 100%;
+        margin: 20px 0;
+    }
+    
+    .input-box input {
+        width: calc(100% - 6px); /* Adjusted width */
+        height: 50px;
+        background: transparent;
+        border: none;
+        outline: none;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        border-radius: 40px;
+        font-size: 16px;
+        color: #fff;
+        padding: 0 20px;
+        
+    }
+    
+    .input-box input::placeholder {
+        color: black;
+    }
+    
+    .input-box i {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+    }
+    
+    .btnn {
+        width: 100%;
+        height: 60px;
+        background-color: #fff;
+        border: none;
+        outline: none;
+        border-radius: 40px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+        font-weight: 600;
+    }
+    .btnn:hover{
+       background-color:green !important;
+        cursor: pointer;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
+    }
+ 
+ /* css for register is end here  */
+ 
+ /*  css for product view page */
+ 
+ .card-sh{
+ box-shadow:0 0 8px 0 rgba(0,0,0,3);
+ }
+ 
+ .cat-div{
+ box-shadow:0 0 10px rgba(0,0,0,.1)
+ }
+ 
+
+/* This is  for tablets */
+  @media only screen and (max-width: 768px) {
+  
+   .slide-main {
+      height: 60vh;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+  }
+  
+  .new-arrival {
+    background-color: rgb(240, 210, 155);
+    padding: 20px;
+    width: 40%;
+    height: 300px;
+    position: absolute;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .new-arrival p {
+    font-weight: 550;
+    font-size: 0.92rem;
+    margin-top: 7px;
+  }
+  
+  .new-arrival h2 {
+    font-size: 1.8rem;
+    color: rgb(193, 127, 3);
+  }
+  
+  .hero-btn {
+    margin-top: 15px;
+    width: 130px;
+    height: 48px;
+    border: none;
+    outline: none;
+    color: white;
+    border-radius: 10px;
+    background-color: rgb(233, 117, 87);
+  }
+  
+    .new-arrival {
+      width: 70%;
+      left: 10%;
+    }
+  
+    .hero-btn {
+      width: 100%;
+    }
+  
+     button.hero-btn,
+    button.product-btn {
+      position: absolute; 
+      bottom: 8px;
+      width: 50%; 
+      left: 50%;
+      transform: translateX(-50%);
+  
+
+    }
+  }
+  
+  /* This css is for mobile  */
+  @media only screen and (max-width: 600px) {
+  .slide-main {
+     
+      height: 65vh;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+  
+    .new-arrival {
+      background-color: rgb(240, 210, 155);
+      padding: 10px;
+      width: 73%;
+      left: 7.5%;
+      height: 260px;
+      position: absolute;
+      border-radius: 10px;
+      text-align: center;
+    }
+  
+    .new-arrival p {
+      font-weight: 550;
+      font-size: 0.92rem;
+      margin-top: 7px;
+    }
+  
+    .new-arrival h2 {
+      font-size: 1.8rem;
+      color: rgb(193, 127, 3);
+    }
+  
+    .hero-btn {
+      margin-top: 30px !important;
+      width: 130px;
+      height: 48px;
+      border: none;
+      outline: none;
+      color: white;
+      border-radius: 10px;
+      background-color: rgb(233, 117, 87);
+    }
+    
+  }
+  
+  .bg-rgb{
+   color: rgb(233, 117, 87);
+  
+  }
+  

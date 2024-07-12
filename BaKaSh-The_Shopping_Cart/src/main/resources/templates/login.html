@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+body {
+	background-color: rgb(156, 39, 176) !important;
+}
+
+</style>
+
+</head>
+<body>
+
+	<section style="background-color: rgb(156, 39, 176) !important;">
+		<div class="container mt-5 p-5">
+			<div class="row">
+				<!-- This grid for image -->
+				<div class="col-md-6 p-5">
+					<img alt="" src="/img/logingrid-removebg-preview.png" width="100%" 
+						height="400px">
+				</div>
+				<!-- This grid for login page  -->
+				<div class="col-md-6 p-5">
+					<div class="half-black">
+						<div class="wrapper">
+							<div>
+								<h2 style="text-align: center;">
+									Welcome Back <span>&#x1F642;</span>
+								</h2>
+								<form action="/login" method="post" id="login-container">
+									<h1>Login</h1>
+									
+									<!-- <div th:if="${param.error}"
+									class="alert alert-danger text-center"></div> -->
+									
+									<th:block
+									 th:if="${session.SPRING_SECURITY_LAST_EXCEPTION !=null}" class="text white">
+									 <div id="error-msg" class="alert alert-danger text-center">
+									 [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+									 </div>
+									 </th:block>
+									 
+									 <div th:if="${param.logout}" class="alert alert-success ">
+									           Logout Successfully</div>
+									
+
+									<div class="input-box">
+										<input type="text" placeholder="Email" name="username" required>
+										<i class="fa-solid fa-envelope"></i>
+									</div>
+
+									<div class="input-box">
+										<input type="password" placeholder="Password" name="password"
+											required> <i class="fa-solid fa-lock"></i>
+									</div>
+									<div class="remember-forgot">
+										<label><input type="checkbox">Rmbr me</label> <a
+											href="/forgot-password">Fg pw?</a>
+									</div>
+									<button type="submit" class="btnn">Login</button>
+									<div class="register-link">
+										<p>
+											Don't have an account?<a href="/register">Register</a>
+										</p>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+	</section>
+	
+	  
+</body>
+</html>
