@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+body {
+	background-color: rgb(156, 39, 176) !important;
+}
+</style>
+
+</head>
+<body>
+
+	<section style="background-color: rgb(156, 39, 176) !important;">
+		<div class="container mt-5 p-5">
+
+			<form action="/user/save_orders" method="post">
+				<div class="row">
+
+					<div class="col-md-6 p-5">
+
+						<p class="text-center fs-4 mt-0.5">Fill Address</p>
+						<hr>
+						<div class="mb-4 row">
+							<input type="text" name="firstName" placeholder="First Name" required
+								class="form-control col"> <input type="text"
+								name="lastName" placeholder="Last Name"
+								class="form-control col ms-2">
+						</div>
+
+						<div class="mb-4 row">
+							<input type="email" name="email" placeholder="Email"
+								class="form-control col mt-4"> <input type="number" required
+								name="mobileNo" placeholder="Mobile Number"
+								class="form-control col ms-2 mt-4">
+						</div>
+
+
+						<div class="mb-4 row">
+							<input type="text" name="address" placeholder="address" required
+								class="form-control col mt-4">
+
+						</div>
+
+						<!-- 	</form> -->
+
+
+
+
+					</div>
+					<!-- This grid for login page  -->
+					<div class="col-md-6 p-5">
+						<p class="text-center fs-4 mt-0.5">Payment Type</p>
+						<hr>
+						<div class="card">
+							<div class="card-body">
+								<table class="table table-borderless">
+									<tbody>
+										<tr>
+											<td>Total Price</td>
+											<td>:</td>
+											<td>&#8360; [[${orderPrice}]]</td>
+										</tr>
+										<tr>
+											<td>Delivery Fee</td>
+											<td>:</td>
+											<td>&#8360; 250</td>
+										</tr>
+										<tr>
+											<td>Tax</td>
+											<td>:</td>
+											<td>&#8360; 100</td>
+										</tr>
+
+										<tr class="border-top">
+											<td>Grand Total Price</td>
+											<td>:</td>
+											<td>&#8360; [[${totalOrderPrice}]]</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+						<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+
+							<div class="card-body">
+								<!-- <form action="/login" method="post"> -->
+								<div class="mb-3">
+									<label class="form-label">Select Payment type</label> <select
+										class="form-control" name="paymentType" required>
+										<option>--select--</option>
+										<option value="COD">Cash On Delivery</option>
+										<option value="ONLINE">Online payment</option>
+
+									</select>
+								</div>
+								<button class="btn bg-primary text-white cold-md-12 text-center">Place
+									Order</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+	</section>
+
+
+</body>
+</html>

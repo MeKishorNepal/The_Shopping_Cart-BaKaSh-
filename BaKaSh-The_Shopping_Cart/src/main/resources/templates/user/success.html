@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+body {
+	background-color: rgb(156, 39, 176) !important;
+}
+</style>
+
+</head>
+<body>
+
+	<section style="background-color: rgb(156, 39, 176) !important;">
+		<div class="container mt-5 p-5">
+			<div class="row">
+				<div class="col-md-6 p-5 offset-md-3 text-center">
+				<i class="fa-solid fa-circle-check fa-5x text-success"></i>
+				<p class="fs-3"> Product Ordered Successfully</p>
+				<p class="fs-4">Product will be delivered with in 2 days</p>
+				<div class="text-center">
+				<a href="/" class="btn btn-primary">Home</a>
+				<a href="/order" class="btn btn-success">Your Order</a>
+				
+				</div>
+				</div>
+				
+				
+			</div>
+
+		</div>
+
+
+	</section>
+
+
+</body>
+</html>
