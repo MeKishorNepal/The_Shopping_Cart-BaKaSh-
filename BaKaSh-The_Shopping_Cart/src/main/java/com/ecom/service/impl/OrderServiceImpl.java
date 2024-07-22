@@ -1,7 +1,9 @@
 package com.ecom.service.impl;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
 			ProductOrder order=new ProductOrder();
 			
 			order.setOrderId(UUID.randomUUID().toString());
-			order.setOrderDate(new Date());
+			order.setOrderDate(LocalDate.now());
 			
 			order.setProduct(cart.getProduct());
 			order.setPrice(cart.getProduct().getDiscountPrice());
@@ -43,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 			order.setUser(cart.getUser());
 			
 			order.setStatus(OrderStatus.IN_PROGRESS.getName());
-			order.setPaymentType(orderRequest.getPaymentType());  //here now we use that model which is not save in database
+			order.setPaymentType(orderRequest.getPaymentType());  // from here now we use that model which is not save in database
 			
 			OrderAddress address=new OrderAddress();
 			address.setFirstName(orderRequest.getFirstName());
@@ -59,6 +61,25 @@ public class OrderServiceImpl implements OrderService {
 			
 		}
 		
+	}
+
+	@Override
+	public List<ProductOrder> getOrdersByUser(Integer userId) {
+	  List<ProductOrder>orders=orderRepo.findByUserId(userId);
+		return orders;
+	}
+
+	@Override
+	public Boolean updateOrderStatus(Integer id, String st) {
+		Optional<ProductOrder> findById=orderRepo.findById(id);
+		
+		if(findById.isPresent()) {
+			ProductOrder productOrders=findById.get();
+			productOrders.setStatus(st);
+			orderRepo.save(productOrders);
+			return true;
+		}
+		return false;
 	}
 
 }

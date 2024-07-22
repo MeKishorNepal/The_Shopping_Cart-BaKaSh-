@@ -86,6 +86,7 @@ public class UserServiceImpl implements UserService {
 			user.setFailedAttempt(0);
 			user.setLockTime(null);
 			userRepo.save(user);
+			return true;
 			
 		}
 		
