@@ -17,5 +17,6 @@ public class OrderAddress {
 	private String email;
 	private String mobileNo;
 	private String address;
-
+  
+	//This is the billing address.
 }

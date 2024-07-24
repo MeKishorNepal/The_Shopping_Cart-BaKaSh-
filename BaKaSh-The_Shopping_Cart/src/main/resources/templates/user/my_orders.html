@@ -19,7 +19,7 @@ body {
 				<p class="text-center fs-3">My Orders</p>
 				
 				  <th:block th:if="${session.succMsg}">
-								<p class="text-primary  text-center fw-bold">[[${session.succMsg}]]</p>
+								<p class="text-white  text-center fw-bold">[[${session.succMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 
@@ -51,7 +51,7 @@ body {
 								
 								<td>[[${o.status}]]</td>
 								<td>
-								<th:block th:if="${o.status!='Cancelled'}">
+								<th:block th:if="${o.status!='Cancelled' }">
 								
 								<a th:href="@{'/user/update-status?id='+${o.id}+'&st=6'}" class="btn btn-sm btn-danger"
 									>Cancel</a>

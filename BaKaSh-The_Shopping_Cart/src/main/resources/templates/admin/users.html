@@ -9,12 +9,12 @@
 
 	<section>
 		<div class="container-fluid mt-5 p-5  card-sh">
-		
+		<a href="/admin/" class="text-decoration-none text-light"><i class="fa-solid fa-arrow-left fs-3  " ></i></a>
 			<div class="card">
 				<div class="card-header text-center">
 					<p class="fs-4 ">Users </p>
 					
-					
+					  
 					<th:block th:if="${session.succMsg}">
 								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>

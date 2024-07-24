@@ -16,6 +16,7 @@ import com.ecom.model.ProductOrder;
 import com.ecom.repository.CartRepo;
 import com.ecom.repository.ProductOrderRepo;
 import com.ecom.service.OrderService;
+import com.ecom.util.CommonUtil;
 import com.ecom.util.OrderStatus;
 
 @Service
@@ -26,9 +27,12 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private CartRepo cartRepo;
+	
+	@Autowired
+	CommonUtil commonUtil;
 
 	@Override
-	public void saveOrder(Integer userid,OrderRequest orderRequest) {
+	public void saveOrder(Integer userid,OrderRequest orderRequest) throws Exception {
 		
 		List<Cart>carts=cartRepo.findByUserId(userid);
 		
@@ -57,7 +61,9 @@ public class OrderServiceImpl implements OrderService {
 			
 			order.setOrderAddress(address);
 			
-			orderRepo.save(order);
+			ProductOrder saveOrder=orderRepo.save(order);
+			//When Customer first time order then also send mail 
+			commonUtil.sendMailForProductOrder(saveOrder, "success");
 			
 		}
 		
@@ -70,16 +76,22 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Boolean updateOrderStatus(Integer id, String st) {
+	public ProductOrder updateOrderStatus(Integer id, String st) {
 		Optional<ProductOrder> findById=orderRepo.findById(id);
 		
 		if(findById.isPresent()) {
-			ProductOrder productOrders=findById.get();
-			productOrders.setStatus(st);
-			orderRepo.save(productOrders);
-			return true;
+			ProductOrder productOrder=findById.get();
+			productOrder.setStatus(st);
+			ProductOrder updateOrder=orderRepo.save(productOrder);
+			return updateOrder;
 		}
-		return false;
+		return null;
+	}
+
+	@Override
+	public List<ProductOrder> getAllOrders() {
+		return orderRepo.findAll();
+		
 	}
 
 }

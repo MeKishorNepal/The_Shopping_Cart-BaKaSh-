@@ -32,7 +32,7 @@ public class ProductOrder {
 	private Product product;
 	
 	private Double price;
-	private int quantity;
+	private Integer quantity;
 	
 	@ManyToOne
 	private UserDtls user;

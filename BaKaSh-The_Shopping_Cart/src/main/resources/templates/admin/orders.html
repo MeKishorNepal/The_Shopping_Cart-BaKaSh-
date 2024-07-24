@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+body {
+	background-color: rgb(156, 39, 176) !important;
+}
+</style>
+
+</head>
+<body>
+
+	<section style="background-color: rgb(156, 39, 176) !important;">
+		<div class="container-fluid mt-5 p-3">
+			<div class="row">
+				<p class="text-center fs-3 mt-2">All Orders</p>
+				<hr>
+               <a href="/admin/" class="text-decoration-none text-light"><i class="fa-solid fa-arrow-left fs-3  " ></i></a>
+				<th:block th:if="${session.succMsg}">
+					<p class="text-white  text-center fw-bold">[[${session.succMsg}]]</p>
+					<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+				</th:block>
+
+				<th:block th:if="${session.errorMsg}">
+					<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+					<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+				</th:block>
+
+
+				<!--      This form is for Search div -->
+				<div class="col-md-4 p-4">
+					<div class="row">
+						<form>
+							<div class="row">
+								<div class="col">
+									<input type="text" class="form-control" name=""
+										placeholder="Enter Order Id">
+								</div>
+								<div class="col">
+									<button class="btn btn-primary">Search</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="col-md-12  ">
+
+
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th scope="col">Order Id</th>
+								<th scope="col">Deliver Details</th>
+								<th scope="col">Date</th>
+								<th scope="col">Product Details</th>
+								<th scope="col">Price</th>
+								<th scope="col">status</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="o : ${orders}">
+								<th scope="row">[[${o.orderId}]]</th>
+								<td>Name : [[${o.orderAddress.firstName+''+
+									o.orderAddress.lastName}]]<br> Email :
+									[[${o.orderAddress.email}]]<br> Mobile No. :
+									[[${o.orderAddress.mobileNo}]]<br> Address :
+									[[${o.orderAddress.address}]]<br>
+								</td>
+								<td>[[${o.orderDate}]]</td>
+								<td>[[${o.product.title}]]</td>
+								<td>Quantity : [[${o.quantity}]] <br> Price :
+									[[${o.price}]] <br> Total Price : [[${o.quantity *
+									o.price}]]
+								</td>
+
+								<td>[[${o.status}]]</td>
+								<td>
+									<!-- This form for updating the order progress -->
+									<form action="/admin/update-order-status" method="post">
+										<div class="row">
+											<div class="col">
+												<select class="form-controll" name="st">
+													<option>-Select-</option>
+													<option value="1">In Progress</option>
+													<option value="2">Order Received</option>
+													<option value="3">Order Packed</option>
+													<option value="4">Out for Delivery</option>
+													<option value="5">Delivered</option>
+													<option value="6">Cancelled</option>
+												</select>
+											</div>
+											<input th:value="${o.id}" name="id" type="hidden">
+											<div class="col">
+                                         <!--   Here adding a logic that when product delivered then button should disabled and and also when cancelled --> 
+												<th:block
+													th:if="${o.status=='Cancelled' || o.status=='Delivered'}">
+
+													<button class="btn btn-primary btn-sm col disabled">Update</button>
+
+												</th:block>
+
+												<th:block
+													th:unless="${o.status=='Cancelled' || o.status=='Delivered'}">
+
+													<button class="btn btn-primary btn-sm col ">Update</button>
+
+												</th:block>
+
+											</div>
+										</div>
+									</form>
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+
+
+	</section>
+
+
+</body>
+</html>
