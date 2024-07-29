@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.Cart;
 import com.ecom.model.Category;
@@ -46,6 +48,9 @@ public class UserController {
 	
 	@Autowired
 	CommonUtil commonUtil;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder; 
 	
 	@ModelAttribute
 	public void getUserDetails(Principal p,Model m) {
@@ -191,6 +196,47 @@ public class UserController {
 		
 		
 		return "/user/profile";
+	}
+	
+	
+	@PostMapping("/update-profile")
+	public String updateUserProfile(@ModelAttribute UserDtls user,@RequestParam MultipartFile image,HttpSession session) {
+		
+		UserDtls updateUserProfile = userService.updateUserProfile(user, image);
+		
+		if(!ObjectUtils.isEmpty(updateUserProfile)) {
+			session.setAttribute("succMsg","Profile update Successfull");
+			
+		}else {
+			session.setAttribute("succMsg","Profile is not update");
+		}
+		
+		return "redirect:/user/profile";
+	}
+	
+	
+	@PostMapping("/change-password")
+	public String changePassword(@RequestParam String newPassword,@RequestParam String currentPassword,Principal p,HttpSession session) {
+		
+		UserDtls loggedInUserDetails=getLoggedInUserDetails(p);
+		
+		Boolean matches=passwordEncoder.matches(currentPassword, loggedInUserDetails.getPassword());
+		
+		if(matches) {
+			String encodePassword=passwordEncoder.encode(newPassword);
+			loggedInUserDetails.setPassword(encodePassword);
+			UserDtls updateUser=userService.updateUser(loggedInUserDetails);
+			if(ObjectUtils.isEmpty(updateUser)) {
+				session.setAttribute("errorMsg","Password not change try again..");
+				
+			}else {
+				session.setAttribute("succMsg","Password change successfully");
+			}
+			
+		}else {
+			session.setAttribute("errorMsg","Current Password is Incorrect");
+		}
+		return "redirect:/user/profile";
 	}
 	
 	

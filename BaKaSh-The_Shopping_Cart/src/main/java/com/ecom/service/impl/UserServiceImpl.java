@@ -1,14 +1,22 @@
 package com.ecom.service.impl;
 
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.UserDtls;
 import com.ecom.repository.UserRepo;
@@ -113,5 +121,49 @@ public class UserServiceImpl implements UserService {
 	public UserDtls updateUser(UserDtls user) {
 		
 		return userRepo.save(user);
+	}
+	@Override
+	public UserDtls updateUserProfile(UserDtls user,MultipartFile image) {
+		/*
+		 * by using user id first we get all the data of user and then replace that
+		 * existing data with coming new data
+		 */
+		 
+		UserDtls dbuser=userRepo.findById(user.getId()).get();
+		
+		if(!image.isEmpty()) {
+			dbuser.setProfileImage(image.getOriginalFilename());
+		}
+		
+		if(!ObjectUtils.isEmpty(dbuser)) {
+			
+			dbuser.setName(user.getName());
+			dbuser.setMobileNumber(user.getMobileNumber());
+			dbuser.setAddress(user.getAddress());
+			dbuser.setProfileImage(user.getProfileImage());
+			
+			dbuser=userRepo.save(dbuser);
+			
+		}
+		
+		//now we need to store profile image in local storage also
+		try {
+		if(!image.isEmpty()) {
+			
+			File saveFile=new ClassPathResource("static/img").getFile();
+			
+			Path path=Paths.get(saveFile.getAbsolutePath()+File.separator+"profile_img"+File.separator+image.getOriginalFilename());
+			System.out.println(path);
+			Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+			
+		
+		
+		
+		
+		return dbuser;
 	}
 }

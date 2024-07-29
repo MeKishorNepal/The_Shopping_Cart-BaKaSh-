@@ -14,16 +14,27 @@ body {
 <body>
 
 	<section style="background-color: rgb(156, 39, 176) !important;">
-		<div class="container mt-5 p-5">
+		<div class="container-fluid bg-light mt-5 p-5 ">
 			<div class="row">
 				<div class="col-md-10  offset-md-1">
 
 
 					<p class="text-center fs-3">My profile</p>
+					<th:block th:if="${session.succMsg}">
+								<p class="text-success  text-center fw-bold">[[${session.succMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+
+							<th:block th:if="${session.errorMsg}">
+								<p class="text-danger text-center fw-bold">[[${session.errorMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
 					<hr>
-					<img alt="" src="/img/profile_img/Bag.jpg" class="border p-2"
+					<div>
+					<img alt="" th:src="@{'../img/profile_img/'+${user.profileImage}}" class="border p-2"
 						style="width: 110px; height: 110px; border-radius: 50%;">
 					<h5>Profile Picture</h5>
+					</div>
 
 
 
@@ -31,45 +42,47 @@ body {
 						<table class="table table-borderless">
 
 							<tbody>
-								<form>
+								<form  action="/user/update-profile" method="post" enctype="multipart/form-data">
 									<tr>
-										<th scosspe="row">Name</th>
-										<td><input type="text" name="form-control" value="Name"></td>
+										<th scope="row">Name</th>
+										<td><input type="text" name="name" class="form-control" th:value="${user.name}"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Email</th>
-										<td><input type="text" name="form-control" readonly></td>
+										<td><input type="text" name="email" class="form-control" th:value="${user.email}" readonly></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Mobile No.</th>
-										<td><input type="text" name="form-control" value="Name"></td>
+										<td><input type="text" name="mobileNumber" class="form-control" th:value="${user.mobileNumber}"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Address</th>
-										<td><input type="text" name="form-control" value="Name"></td>
+										<td><input type="text" name="address" class="form-control" th:value="${user.address}"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Profile Image</th>
-										<td><input type="text" name="form-control" value="Name"></td>
+										<td><input type="file" class="form-control" name="image"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Role</th>
-										<td><input type="text" name="form-control" readonly></td>
+										<td><input type="text" class="form-control" th:value="${user.role}" readonly></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Account Status</th>
-										<td><input type="text" name="form-control" readonly></td>
+										<td><input type="text"  class="form-control" th:value="${user.isEnable}" readonly></td>
 									</tr>
+									
+									<input type="hidden" th:value="${user.id}" name="id">
 
 									<tr>
-										<td></td>
-										<td class="text-center">
+										
+										<td colspan="2" class="text-center">
 											<button class="btn btn-sm bg-primary text-light">Update</button>
 										</td>
 									<tr>
@@ -88,17 +101,17 @@ body {
 						<div class="col-md-6 offset-md-3">
 							<table class="table table-borderless">
 								<tbody>
-									<form>
+									<form action="/user/change-password" method="post">
 										<tr>
 											<th scope="row">Current Password</th>
 											<td></td>
-											<td><input type="text" name="" class="form-control"></td>
+											<td><input type="text" name="currentPassword" class="form-control"></td>
 										</tr>
 
 										<tr>
 											<th scope="row">New Password</th>
 											<td></td>
-											<td><input type="text" name="" class="form-control"></td>
+											<td><input type="text" name="newPassword" class="form-control"></td>
 										</tr>
 
 										<tr>
@@ -107,8 +120,10 @@ body {
 											<td><input type="text" name="" class="form-control"></td>
 										</tr>
 										<tr>
-											<td></td>
-											<td class="text-center">
+										
+										
+											
+											<td colspan="3" class="text-center">
 												<button class="btn btn-sm bg-primary text-light col-md-4 ">Update</button>
 											</td>
 											</tr>
