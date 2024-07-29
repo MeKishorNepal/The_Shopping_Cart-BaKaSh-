@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+body {
+	background-color: rgb(156, 39, 176) !important;
+}
+</style>
+
+</head>
+<body>
+
+	<section style="background-color: rgb(156, 39, 176) !important;">
+		<div class="container mt-5 p-5">
+			<div class="row">
+				<div class="col-md-10  offset-md-1">
+
+
+					<p class="text-center fs-3">My profile</p>
+					<hr>
+					<img alt="" src="/img/profile_img/Bag.jpg" class="border p-2"
+						style="width: 110px; height: 110px; border-radius: 50%;">
+					<h5>Profile Picture</h5>
+
+
+
+					<div class="col-md-8 offset-md-2 mt-4">
+						<table class="table table-borderless">
+
+							<tbody>
+								<form>
+									<tr>
+										<th scosspe="row">Name</th>
+										<td><input type="text" name="form-control" value="Name"></td>
+									</tr>
+
+									<tr>
+										<th scope="row">Email</th>
+										<td><input type="text" name="form-control" readonly></td>
+									</tr>
+
+									<tr>
+										<th scope="row">Mobile No.</th>
+										<td><input type="text" name="form-control" value="Name"></td>
+									</tr>
+
+									<tr>
+										<th scope="row">Address</th>
+										<td><input type="text" name="form-control" value="Name"></td>
+									</tr>
+
+									<tr>
+										<th scope="row">Profile Image</th>
+										<td><input type="text" name="form-control" value="Name"></td>
+									</tr>
+
+									<tr>
+										<th scope="row">Role</th>
+										<td><input type="text" name="form-control" readonly></td>
+									</tr>
+
+									<tr>
+										<th scope="row">Account Status</th>
+										<td><input type="text" name="form-control" readonly></td>
+									</tr>
+
+									<tr>
+										<td></td>
+										<td class="text-center">
+											<button class="btn btn-sm bg-primary text-light">Update</button>
+										</td>
+									<tr>
+								</form>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+
+				<hr>
+				<div class="col-md-10 offset-md-1 mt-1">
+					<div class="row">
+						<p class="text-center fs-3">Change Password</p>
+
+						<div class="col-md-6 offset-md-3">
+							<table class="table table-borderless">
+								<tbody>
+									<form>
+										<tr>
+											<th scope="row">Current Password</th>
+											<td></td>
+											<td><input type="text" name="" class="form-control"></td>
+										</tr>
+
+										<tr>
+											<th scope="row">New Password</th>
+											<td></td>
+											<td><input type="text" name="" class="form-control"></td>
+										</tr>
+
+										<tr>
+											<th scope="row">Confirm Password</th>
+											<td></td>
+											<td><input type="text" name="" class="form-control"></td>
+										</tr>
+										<tr>
+											<td></td>
+											<td class="text-center">
+												<button class="btn btn-sm bg-primary text-light col-md-4 ">Update</button>
+											</td>
+											</tr>
+											
+									
+									</form>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+
+
+			</div>
+
+
+		</div>
+
+
+
+	</section>
+
+
+</body>
+</html>

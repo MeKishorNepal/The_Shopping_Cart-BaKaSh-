@@ -186,6 +186,15 @@ public class UserController {
 	
 	
 	
+	@GetMapping("/profile")
+	public String profile() {
+		
+		
+		return "/user/profile";
+	}
+	
+	
+	
 	
 	
 	
