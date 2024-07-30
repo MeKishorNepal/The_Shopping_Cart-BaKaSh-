@@ -33,10 +33,10 @@ body {
 				<!--      This form is for Search div -->
 				<div class="col-md-4 p-4">
 					<div class="row">
-						<form>
+						<form action="/admin/search-orderProduct" method="get">
 							<div class="row">
 								<div class="col">
-									<input type="text" class="form-control" name=""
+									<input type="text" class="form-control" name="orderId" 
 										placeholder="Enter Order Id">
 								</div>
 								<div class="col">
@@ -63,6 +63,74 @@ body {
 							</tr>
 						</thead>
 						<tbody>
+						
+						<th:block th:if="${orderDtls !=null}">
+						
+						<th:block th:if="${srch}">
+						
+								<th scope="row">[[${orderDtls.orderId}]]</th>
+								<td>Name : [[${orderDtls.orderAddress.firstName+''+
+									orderDtls.orderAddress.lastName}]]<br> Email :
+									[[${orderDtls.orderAddress.email}]]<br> Mobile No. :
+									[[${orderDtls.orderAddress.mobileNo}]]<br> Address :
+									[[${orderDtls.orderAddress.address}]]<br>
+								</td>
+								<td>[[${orderDtls.orderDate}]]</td>
+								<td>[[${orderDtls.product.title}]]</td>
+								<td>Quantity : [[${orderDtls.quantity}]] <br> Price :
+									[[${orderDtls.price}]] <br> Total Price : [[${orderDtls.quantity *
+									orderDtls.price}]]
+								</td>
+
+								<td>[[${orderDtls.status}]]</td>
+								<td>
+									<!-- This form for updating the order progress -->
+									<form action="/admin/update-order-status" method="post">
+										<div class="row">
+											<div class="col">
+												<select class="form-controll" name="st">
+													<option>-Select-</option>
+													<option value="1">In Progress</option>
+													<option value="2">Order Received</option>
+													<option value="3">Order Packed</option>
+													<option value="4">Out for Delivery</option>
+													<option value="5">Delivered</option>
+													<option value="6">Cancelled</option>
+												</select>
+											</div>
+											<input th:value="${orderDtls.id}" name="id" type="hidden">
+											<div class="col">
+                                         <!--   Here adding a logic that when product delivered then button should disabled and and also when cancelled --> 
+												<th:block
+													th:if="${orderDtls.status=='Cancelled' || orderDtls.status=='Delivered'}">
+
+													<button class="btn btn-primary btn-sm col disabled">Update</button>
+
+												</th:block>
+
+												<th:block
+													th:unless="${orderDtls.status=='Cancelled' || orderDtls.status=='Delivered'}">
+
+													<button class="btn btn-primary btn-sm col ">Update</button>
+
+												</th:block>
+
+											</div>
+										</div>
+									</form>
+
+								</td>
+							</tr>
+							</th:block>
+							
+							<th:block th:unless="${orderDtls !=null}">
+							<p class="fs-3 text-center text-danger">[[${errorMsg}]]</p>
+							</th:block>
+							
+						</th:block>
+						
+						<th:block th:unless="${srch}">
+					
 							<tr th:each="o : ${orders}">
 								<th scope="row">[[${o.orderId}]]</th>
 								<td>Name : [[${o.orderAddress.firstName+''+
@@ -116,8 +184,11 @@ body {
 									</form>
 
 								</td>
+								</th:block>
 							</tr>
+							
 						</tbody>
+						
 					</table>
 
 				</div>

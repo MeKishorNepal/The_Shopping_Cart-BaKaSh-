@@ -37,6 +37,7 @@ import com.ecom.service.UserService;
 import com.ecom.util.CommonUtil;
 import com.ecom.util.OrderStatus;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -332,6 +333,7 @@ public class AdminController {
     	
     	List<ProductOrder> allOrders=orderService.getAllOrders();
     	m.addAttribute("orders",allOrders);
+    	m.addAttribute("srch",false);
     	return "/admin/orders";
     }
     
@@ -364,6 +366,39 @@ public class AdminController {
 	}
 		return "redirect:/admin/orders";
 	}
+    
+    
+	@GetMapping("/search-orderProduct")
+	public String searchProduct(@RequestParam String orderId,Model m,HttpSession session) {
+		
+		
+		if(orderId !=null && orderId.length()>0) {
+			ProductOrder order=orderService.getOrderByOrderId(orderId.trim());
+			
+			if(ObjectUtils.isEmpty(order)){
+				session.setAttribute("errorMsg","Incorrect orderid");
+				m.addAttribute("orderDtls",null);
+				
+			}else {
+				m.addAttribute("orderDtls",order);
+			}
+			
+			m.addAttribute("srch",true);
+			
+			
+		}else {
+			
+			List<ProductOrder> allOrders=orderService.getAllOrders();
+	    	m.addAttribute("orders",allOrders);
+	    	m.addAttribute("srch",false);
+		}
+		
+		return "/admin/orders";
+		
+	}
+	
+	
+		
 	
 
 

@@ -33,9 +33,14 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/user")
 public class UserController {
 	
-
-	@Autowired
-	private UserService userService;
+	/*
+	 * private UserService userS = null;
+	 * 
+	 * public UserController( UserService s) { this.userS=s; }
+	 */
+	
+	  @Autowired private UserService userService;
+	
 	
 	@Autowired
 	private CategoryService catService;
