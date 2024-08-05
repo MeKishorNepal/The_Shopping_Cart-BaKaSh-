@@ -251,9 +251,22 @@ public class AdminController {
 		
 	
     @GetMapping("/productView")
-	public String loadProductView(Model m) {
+	public String loadProductView(Model m,@RequestParam(defaultValue="") String ch) {
     	
-    	m.addAttribute("products",proService.getAllProducts());
+		/*
+		 * here we add our logic means when admin search product then we get all
+		 * searchProduct and if when admin nothing search then we get all products
+		 */
+    	List<Product>products=null;
+    	
+    	if(ch !=null && ch.length()>0) {
+            products=proService.searchProduct(ch);
+    	m.addAttribute("products",products);
+    	}else {
+    
+    	        products=proService.getAllProducts();
+    	}
+    	m.addAttribute("products",products);
     	
 		return "admin/Products_view";
 				
@@ -396,6 +409,19 @@ public class AdminController {
 		return "/admin/orders";
 		
 	}
+	
+	/* we will do this operation in view product page directly
+	 * @GetMapping("/search-product") public String searchProduct(@RequestParam
+	 * String ch,Model m) {
+	 * 
+	 * List<Product>searchProduct=proService.searchProduct(ch);
+	 * m.addAttribute("products",searchProduct);
+	 * 
+	 * 
+	 * 
+	 * 
+	 * return ""; }
+	 */
 	
 	
 		

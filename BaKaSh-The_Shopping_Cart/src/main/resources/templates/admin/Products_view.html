@@ -8,31 +8,48 @@
 <body>
 
 	<section>
-		<div class="container-fluid mt-5 p-5  card-sh">
-		<a href="/admin/" class="text-decoration-none text-light"><i class="fa-solid fa-arrow-left fs-3  " ></i></a>
-			<div class="card">
-				<div class="card-header text-center">
-					<p class="fs-4 ">View Products</p>
-					
-					  
-					
-					
-					<th:block th:if="${session.succMsg}">
-								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
-								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
-							</th:block>
+		<div class="container-fluid mt-5 p-1  card-sh">
+		<div class="row">
+		<p class="text-center fs-3 mt-2">All Product</p>
+				<hr>
+               <a href="/admin/" class="text-decoration-none text-light"><i class="fa-solid fa-arrow-left fs-3  " ></i></a>
+				<th:block th:if="${session.succMsg}">
+					<p class="text-white  text-center fw-bold">[[${session.succMsg}]]</p>
+					<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+				</th:block>
 
-							<th:block th:if="${session.errorMsg}">
-								<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
-								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
-							</th:block>
-							
-							
+				<th:block th:if="${session.errorMsg}">
+					<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+					<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+				</th:block>
+
+
+				<!--      This form is for Search div -->
+				<div class="col-md-4 p-4">
+					<div class="row">
+						<form action="/admin/productView" method="get">
+							<div class="row">
+								<div class="col">
+									<input type="text" class="form-control" name="ch">
+								</div>
+								<div class="col">
+									<button class="btn btn-primary">Search</button>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
-				<div class="card-body">
-					<table class="table">
-						<thead>
-							<tr>
+		
+		
+			<!-- <div class="card">
+				<div class="card-header text-center">
+					
+							
+				</div> -->
+				<!-- <div class="p-3 card-shadow"> -->
+					<table class="table table-bordered">
+						<thead class="table-dark">
+							<tr class="fs-5">
 								<th scope="col">Sl No</th>
 								<th scope="col">Image</th>
 								<th scope="col">Title</th>
@@ -45,7 +62,8 @@
 								<th scope="col">Action</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody class="table-light">
+						
 							<tr th:each="p,c:${products}">
 								<th scope="row">[[${c.count}]]</th>
 								<td><img th:src="@{'/img/product_img/'+${p.image}}" width="50px" height="50px"></td>
@@ -65,10 +83,12 @@
 
 						</tbody>
 					</table>
+				
 				</div>
 			</div>
-		</div>
 		
+	
+	
 	</section>
 </body>
 </html>
