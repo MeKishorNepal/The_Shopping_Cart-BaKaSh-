@@ -102,7 +102,7 @@ public class HomeController {
 	public String products(Model m,@RequestParam(value="category",defaultValue="") String category,
 			@RequestParam (name="pageNo",defaultValue="0")Integer pageNo,
 			@RequestParam(name="pageSize",defaultValue="3") Integer pageSize) {
-		System.out.println("category= "+ category);
+		//System.out.println("category= "+ category);
 		
 		List<Category> categories=catService.getAllActiveCategory();
 		m.addAttribute("categories",categories);
@@ -254,15 +254,25 @@ public class HomeController {
 	}
 	
 	@GetMapping("/search-product")
-	public String searchProduct(@RequestParam String ch,Model m) {
+	public String searchProduct(@RequestParam String ch,Model m,
+			@RequestParam (name="pageNo",defaultValue="0")Integer pageNo,
+			@RequestParam(name="pageSize",defaultValue="3") Integer pageSize) {
 		
-		List<Product>searchProduct=proService.searchProduct(ch);
-		m.addAttribute("products",searchProduct);
+		Page<Product>page=proService.searchProductPagination(pageNo,pageSize,ch);
 		
-		List<Category> categories=catService.getAllActiveCategory();
+		m.addAttribute("products",page);
+        m.addAttribute("pageNo",page.getNumber());
+        m.addAttribute("pageSize",pageSize);
+        m.addAttribute("totalElements",page.getTotalElements());
+        m.addAttribute("totalPages",page.getTotalPages());
+        m.addAttribute("isFirst",page.isFirst());
+        m.addAttribute("isLast",page.isLast());
+		
+		Page<Category> pages=catService.getAllCategoryPagination(pageNo,pageSize);
 		
 		
-		m.addAttribute("categories",categories);
+		m.addAttribute("categories",page);
+		
 		
 		
 		return "product";

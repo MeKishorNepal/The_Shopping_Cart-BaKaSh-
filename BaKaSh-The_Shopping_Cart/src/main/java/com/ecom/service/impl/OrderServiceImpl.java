@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.ecom.model.Cart;
@@ -92,6 +94,12 @@ public class OrderServiceImpl implements OrderService {
 	public List<ProductOrder> getAllOrders() {
 		return orderRepo.findAll();
 		
+	}
+	
+	@Override
+	public Page<ProductOrder> getAllOrdersPagination(Integer pageNo, Integer pageSize) {
+		PageRequest pageable=PageRequest.of(pageNo, pageSize);
+		return orderRepo.findAll(pageable);
 	}
 
 	@Override
