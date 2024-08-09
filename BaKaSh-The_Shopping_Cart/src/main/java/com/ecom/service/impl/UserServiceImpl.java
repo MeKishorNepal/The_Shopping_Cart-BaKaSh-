@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
 			dbuser.setName(user.getName());
 			dbuser.setMobileNumber(user.getMobileNumber());
 			dbuser.setAddress(user.getAddress());
-			dbuser.setProfileImage(user.getProfileImage());
+			/* dbuser.setProfileImage(user.getProfileImage()); */
 			
 			dbuser=userRepo.save(dbuser);
 			
@@ -165,5 +165,18 @@ public class UserServiceImpl implements UserService {
 		
 		
 		return dbuser;
+	}
+	@Override
+	public UserDtls saveAdmin(UserDtls user) {
+		user.setRole("ROLE_ADMIN");
+		user.setIsEnable(true);
+		user.setAccountNonLocked(true);
+		user.setFailedAttempt(0);
+		user.setLockTime(null);
+		
+		String encodePassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encodePassword);
+		UserDtls saveUser=userRepo.save(user);
+		return saveUser;
 	}
 }

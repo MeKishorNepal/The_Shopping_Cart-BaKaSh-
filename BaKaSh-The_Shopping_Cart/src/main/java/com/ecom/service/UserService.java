@@ -32,5 +32,5 @@ public interface UserService {
 	
 	public UserDtls updateUserProfile(UserDtls user,MultipartFile image);
 	
-	
+	public UserDtls saveAdmin(UserDtls user);
 }

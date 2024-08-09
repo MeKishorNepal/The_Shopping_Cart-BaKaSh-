@@ -12,7 +12,8 @@
 		<a href="/admin/" class="text-decoration-none text-light"><i class="fa-solid fa-arrow-left fs-3  " ></i></a>
 			<div class="card">
 				<div class="card-header text-center">
-					<p class="fs-4 ">Users </p>
+					<p class="fs-4 " th:if="${userType==1}">Users </p>
+					<p class="fs-4 " th:if="${userType==2}">Admins </p>
 					
 					  
 					<th:block th:if="${session.succMsg}">
@@ -53,9 +54,9 @@
 								<td>[[${u.address}]]</td>
 								<td>[[${u.isEnable}]]</td>
 								
-								<td><a th:href="@{'/admin/updateSts?status=true&id='+${u.id}}" class="btn btn-sm btn-primary"> Active</a>
+								<td><a th:href="@{'/admin/updateSts?status=true&id='+${u.id}}+'&type='+${userType}" class="btn btn-sm btn-primary"> Active</a>
 										
-							   <td><a th:href="@{'/admin/updateSts?status=false&id='+${u.id}}" class="btn btn-sm btn-primary">Inactive</a>
+							   <td><a th:href="@{'/admin/updateSts?status=false&id='+${u.id}}+'&type='+${userType}" class="btn btn-sm btn-primary">Inactive</a>
 							</tr>
 
 						</tbody>

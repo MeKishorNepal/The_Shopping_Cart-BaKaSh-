@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.Category;
 import com.ecom.model.Product;
+import com.ecom.model.ProductOrder;
 import com.ecom.model.UserDtls;
 import com.ecom.service.CartService;
 import com.ecom.service.CategoryService;
@@ -99,7 +101,7 @@ public class HomeController {
 	}
 	
 	@GetMapping("/products")
-	public String products(Model m,@RequestParam(value="category",defaultValue="") String category,
+	public String products(Model m,@RequestParam(value="category",defaultValue="") String category,@RequestParam(value="ch",defaultValue="")String ch,
 			@RequestParam (name="pageNo",defaultValue="0")Integer pageNo,
 			@RequestParam(name="pageSize",defaultValue="3") Integer pageSize) {
 		//System.out.println("category= "+ category);
@@ -115,18 +117,25 @@ public class HomeController {
 		 */
 		//here we apply pagination concept 
 		
-		Page<Product>page=proService.getAllActiveProductPagination(pageNo, pageSize,category);
+		
+		Page<Product> page=null;
+		if(StringUtils.isEmpty(ch)) {
+			page=proService.getAllActiveProductPagination(pageNo,pageSize,category);
+		 
+		}else {
+			page=proService.searchActiveProductPagination(pageNo,pageSize,category,ch);
+		}
 		List<Product> products=page.getContent();
-         m.addAttribute("products",products);
-         
-         m.addAttribute("productsSize",products.size());
-         
-         m.addAttribute("pageNo",page.getNumber());
-         m.addAttribute("pageSize",pageSize);
-         m.addAttribute("totalElements",page.getTotalElements());
-         m.addAttribute("totalPages",page.getTotalPages());
-         m.addAttribute("isFirst",page.isFirst());
-         m.addAttribute("isLast",page.isLast());
+		  m.addAttribute("products",products);
+		  m.addAttribute("productsSize",products.size());
+		  
+		  m.addAttribute("pageNo",page.getNumber());
+		  m.addAttribute("pageSize",pageSize);
+		  m.addAttribute("totalElements",page.getTotalElements());
+		  m.addAttribute("totalPages",page.getTotalPages());
+		  m.addAttribute("isFirst",page.isFirst());
+		  m.addAttribute("isLast",page.isLast());
+		  
 		
 		return "product";
 	}
@@ -253,30 +262,40 @@ public class HomeController {
 	
 	}
 	
-	@GetMapping("/search-product")
-	public String searchProduct(@RequestParam String ch,Model m,
-			@RequestParam (name="pageNo",defaultValue="0")Integer pageNo,
-			@RequestParam(name="pageSize",defaultValue="3") Integer pageSize) {
+	
+	  @GetMapping("/search-product") 
+	 public String searchProduct(@RequestParam(defaultValue="")
+	 String ch,Model m,@RequestParam (name="pageNo",defaultValue="0")Integer pageNo,
+	  @RequestParam(name="pageSize",defaultValue="3") Integer pageSize) {
+	 
 		
-		Page<Product>page=proService.searchProductPagination(pageNo,pageSize,ch);
-		
-		m.addAttribute("products",page);
-        m.addAttribute("pageNo",page.getNumber());
-        m.addAttribute("pageSize",pageSize);
-        m.addAttribute("totalElements",page.getTotalElements());
-        m.addAttribute("totalPages",page.getTotalPages());
-        m.addAttribute("isFirst",page.isFirst());
-        m.addAttribute("isLast",page.isLast());
-		
-		Page<Category> pages=catService.getAllCategoryPagination(pageNo,pageSize);
-		
-		
-		m.addAttribute("categories",page);
-		
-		
-		
-		return "product";
-	}
+		  Page<Product> page=null;
+		  if(ch !=null && ch.length()>0) {
+			  page=proService.searchProductPagination(pageNo, pageSize, ch);
+		  }
+		  else {
+		  
+	  page=proService.getAllProductsPagination(pageNo,pageSize);
+		  }
+	  
+	  m.addAttribute("products",page);
+	  m.addAttribute("pageNo",page.getNumber());
+	  m.addAttribute("pageSize",pageSize);
+	  m.addAttribute("totalElements",page.getTotalElements());
+	  m.addAttribute("totalPages",page.getTotalPages());
+	  m.addAttribute("isFirst",page.isFirst());
+	  m.addAttribute("isLast",page.isLast());
+	  
+	  Page<Category> pages=catService.getAllCategoryPagination(pageNo,pageSize);
+	  
+	  
+	  m.addAttribute("categories",page);
+	  
+	  
+	 
+		  
+	  return "product"; }
+	 
 
 
 

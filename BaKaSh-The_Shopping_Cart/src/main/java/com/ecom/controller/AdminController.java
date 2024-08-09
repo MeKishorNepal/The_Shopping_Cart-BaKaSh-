@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -61,8 +62,12 @@ public class AdminController {
 	@Autowired
 	private OrderService orderService;
 	
+
 	@Autowired
 	CommonUtil commonUtil;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@ModelAttribute
 	public void getUserDetails(Principal p,Model m) {
@@ -359,21 +364,35 @@ public class AdminController {
     
     
     @GetMapping("/users")
-    public String getAllUsers(Model m) {
+    public String getAllUsers(Model m,@RequestParam Integer type) {
     	
-    	List<UserDtls>users= userService.getUsers("ROLE_USER");
+    	List<UserDtls>users=null;
+    	
+    	if(type==1) {
+    		users= userService.getUsers("ROLE_USER");
+    	}else {
+    		users= userService.getUsers("ROLE_ADMIN");
+    	}
+    	
+    	m.addAttribute("userType",type);
     	m.addAttribute("users",users);
     	
     	return "/admin/users";
     	
     }
     
-    
-    public String updateUserAccountStatus(@RequestParam Boolean status,@RequestParam Integer id) {
+    @GetMapping("/updateSts")
+    public String updateUserAccountStatus(@RequestParam Boolean status,@RequestParam Integer id,@RequestParam Integer type,HttpSession session) {
     	
     	Boolean f=userService.updateAccountStatus(id,status);
-    	
-    	return "redirect:/admin/users";
+    	if(f) {
+    		session.setAttribute("succMsg", "Account Status Updated");
+    
+    	}else {
+    		session.setAttribute("errorMsg", "Something wrong on server");
+    	    
+    	}
+    	return "redirect:/admin/users?type="+type;
     	
     }
     
@@ -491,8 +510,89 @@ public class AdminController {
 	 * return ""; }
 	 */
 	
+	@GetMapping("/add-admin")
+    public String loadAdminAdd() {
+			
+			
+			return "/admin/add_admin";
+		}
+		/*
+		 * //from here we done this all in userController and here again we are going to
+		 * doing same like module so that we use that code and just modify some part
+		 */
 	
+	@PostMapping("/save-admin")
+	public String saveAdmin(@ModelAttribute UserDtls user, @RequestParam("img") MultipartFile file, HttpSession session) throws IOException {
 		
+		String imageName=file.isEmpty() ? "default.jpg" : file.getOriginalFilename();
+		user.setProfileImage(imageName);
+		
+		UserDtls saveAdmin=userService.saveAdmin(user);
+		
+		if(!ObjectUtils.isEmpty(saveAdmin)) {
+			if(!file.isEmpty()) {
+				
+					//here we will get the class path
+					File saveFile=new ClassPathResource("static/img").getFile();
+					
+					Path path=Paths.get(saveFile.getAbsolutePath()+File.separator+"profile_img"+File.separator+file.getOriginalFilename());
+					System.out.println(path);
+					Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			}
+			
+			session.setAttribute("succMsg","Saved Successfully");
+	
+		}else {
+			session.setAttribute("errorMsg","Something wrong on server");
+		}
+		return "redirect:/admin/add-admin";
+	}
+	
+	@GetMapping("/profile")
+	public String profile() {
+		return "/admin/profile";
+	}
+
+	
+	@PostMapping("/update-profile")
+	public String updateUserProfile(@ModelAttribute UserDtls user,@RequestParam("img") MultipartFile img,HttpSession session) {
+		
+		UserDtls updateUserProfile = userService.updateUserProfile(user, img);
+		
+		if(!ObjectUtils.isEmpty(updateUserProfile)) {
+			session.setAttribute("succMsg","Profile update Successfull");
+			
+		}else {
+			session.setAttribute("succMsg","Profile is not update");
+		}
+		
+		return "redirect:/admin/profile";
+	}
+	
+	
+	@PostMapping("/change-password")
+	public String changePassword(@RequestParam String newPassword,@RequestParam String currentPassword,Principal p,HttpSession session) {
+		
+		UserDtls loggedInUserDetails=commonUtil.getLoggedInUserDetails(p);
+		
+		Boolean matches=passwordEncoder.matches(currentPassword, loggedInUserDetails.getPassword());
+		
+		if(matches) {
+			String encodePassword=passwordEncoder.encode(newPassword);
+			loggedInUserDetails.setPassword(encodePassword);
+			UserDtls updateUser=userService.updateUser(loggedInUserDetails);
+			if(ObjectUtils.isEmpty(updateUser)) {
+				session.setAttribute("errorMsg","Password not change try again..");
+				
+			}else {
+				session.setAttribute("succMsg","Password change successfully");
+			}
+			
+		}else {
+			session.setAttribute("errorMsg","Current Password is Incorrect");
+		}
+		return "redirect:/admin/profile";
+	}
 	
 
 

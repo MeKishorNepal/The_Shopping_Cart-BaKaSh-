@@ -93,7 +93,7 @@ public class UserController {
 	@GetMapping("/cart")
 	public String loadCartPage(Principal p, Model m) {
 	
-		UserDtls user=getLoggedInUserDetails(p);
+		UserDtls user=commonUtil.getLoggedInUserDetails(p);
 		List<Cart> carts=cartService.getCartByUser(user.getId());
 		m.addAttribute("carts",carts);
 		
@@ -115,16 +115,12 @@ public class UserController {
 	
 	
 	
-	private UserDtls getLoggedInUserDetails(Principal p) {
-		String email=p.getName();
-		UserDtls userDtls=userService.getUserByEmail(email);
-		return userDtls;
-	}
+
 	
 	
 	@GetMapping("/orders")
 	public String orderPage(Principal p,Model m) {
-		UserDtls user=getLoggedInUserDetails(p);
+		UserDtls user=commonUtil.getLoggedInUserDetails(p);
 		List<Cart> carts=cartService.getCartByUser(user.getId());
 		m.addAttribute("carts",carts);
 		
@@ -141,7 +137,7 @@ public class UserController {
 	public String saveOrder(@ModelAttribute OrderRequest request,Principal p) throws Exception {
 		
 		//System.out.println(request);
-		UserDtls user=getLoggedInUserDetails(p);
+		UserDtls user=commonUtil.getLoggedInUserDetails(p);
 		orderService.saveOrder(user.getId(), request);
 		
 		
@@ -156,7 +152,7 @@ public class UserController {
 	
 	@GetMapping("/userOrders")
 	public String myOrder(Model m,Principal p) {
-		  UserDtls loginUser=getLoggedInUserDetails(p);
+		  UserDtls loginUser=commonUtil.getLoggedInUserDetails(p);
 		
 		List<ProductOrder> orders=orderService.getOrdersByUser(loginUser.getId());
 		
@@ -223,7 +219,7 @@ public class UserController {
 	@PostMapping("/change-password")
 	public String changePassword(@RequestParam String newPassword,@RequestParam String currentPassword,Principal p,HttpSession session) {
 		
-		UserDtls loggedInUserDetails=getLoggedInUserDetails(p);
+		UserDtls loggedInUserDetails=commonUtil.getLoggedInUserDetails(p);
 		
 		Boolean matches=passwordEncoder.matches(currentPassword, loggedInUserDetails.getPassword());
 		
