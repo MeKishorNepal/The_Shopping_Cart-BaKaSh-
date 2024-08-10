@@ -77,6 +77,9 @@ public class HomeController {
 		List<Category> allActiveCategory=catService.getAllActiveCategory();
 		m.addAttribute("categorys",allActiveCategory);
 		
+		List<Product> Products=proService.getAllProducts();
+		m.addAttribute("Homeproducts",Products);
+		
 		
 	}
 	
