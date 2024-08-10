@@ -25,28 +25,7 @@ body {
   background-size: contain;
 }
 
-.new-arrival {
-  background-color: rgba(222, 219, 219, 0.788) !important;
-  padding-inline-start: 20px;
-  padding-block: 14px;
-  width: 30%;
-  height: 300px;
-  position: absolute;
-  margin-top: 150px;
-  margin-left: 30px;
-  border-radius: 10px;
-}
 
-.new-arrival p {
-  font-weight: 590;
-  font-size: 0.98rem;
-  margin-top: 7px;
-}
-
-.new-arrival h2 {
-  font-size: 1.8rem;
-  color: rgb(48, 68, 254);
-}
 
 .hero-btn {
   margin-top: 15px;
@@ -563,5 +542,8 @@ h1{
   
   }
   
-
+  .error{
+  color: rgb(242, 122, 77);
+  }
   
+

@@ -16,41 +16,43 @@ body {
 	<section style="background-color: rgb(156, 39, 176) !important;">
 		<div class="container mt-5 p-5">
 
-			<form action="/user/save_orders" method="post">
+			<form action="/user/save_orders" method="post" id="orders" novalidate>
 				<div class="row">
 
 					<div class="col-md-6 p-5">
 
-						<p class="text-center fs-4 mt-0.5">Fill Address</p>
-						<hr>
-						<div class="mb-4 row">
-							<input type="text" name="firstName" placeholder="First Name" required
-								class="form-control col"> <input type="text"
-								name="lastName" placeholder="Last Name"
-								class="form-control col ms-2">
+						<div class="mb-3 row">
+							<p class="text-center fs-4 mt-0.5">Billing Address</p>
+							<hr>
+							<div class="col p-1">
+								<input type="text" name="firstName" placeholder="First Name"
+									required class="form-control col">
+							</div>
+							<div class="col p-1">
+								<input type="text" name="lastName" placeholder="Last Name"
+									class="form-control col ms-1">
+							</div>
 						</div>
 
-						<div class="mb-4 row">
-							<input type="email" name="email" placeholder="Email"
-								class="form-control col mt-4"> <input type="number" required
-								name="mobileNo" placeholder="Mobile Number"
-								class="form-control col ms-2 mt-4">
+						<div class="mb-3 row">
+							<div class="col p-1">
+								<input type="email" name="email" placeholder="Email"
+									class="form-control col mt-4">
+							</div>
+							<div class="col p-1">
+								<input type="number" required name="mobileNumber"
+									placeholder="Mobile Number" class="form-control col ms-1 mt-4">
+							</div>
 						</div>
 
-
-						<div class="mb-4 row">
+						<div class="col p-1">
 							<input type="text" name="address" placeholder="address" required
 								class="form-control col mt-4">
-
 						</div>
 
-						<!-- 	</form> -->
-
-
-
-
 					</div>
-					<!-- This grid for login page  -->
+
+					<!-- Payment Type Section -->
 					<div class="col-md-6 p-5">
 						<p class="text-center fs-4 mt-0.5">Payment Type</p>
 						<hr>
@@ -73,7 +75,6 @@ body {
 											<td>:</td>
 											<td>&#8360; 100</td>
 										</tr>
-
 										<tr class="border-top">
 											<td>Grand Total Price</td>
 											<td>:</td>
@@ -85,30 +86,22 @@ body {
 						</div>
 
 						<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
-
 							<div class="card-body">
-								<!-- <form action="/login" method="post"> -->
 								<div class="mb-3">
-									<label class="form-label">Select Payment type</label> <select
-										class="form-control" name="paymentType" required>
-										<option>--select--</option>
+									<label class="form-label">Select Payment type</label> 
+									<select class="form-control" name="paymentType" required>
+										<option value="">--select--</option>
 										<option value="COD">Cash On Delivery</option>
 										<option value="ONLINE">Online payment</option>
-
 									</select>
 								</div>
-								<button class="btn bg-primary text-white cold-md-12 text-center">Place
-									Order</button>
+								<button class="btn bg-primary text-white cold-md-12 text-center">Place Order</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</form>
 		</div>
-
-
 	</section>
-
-
 </body>
 </html>

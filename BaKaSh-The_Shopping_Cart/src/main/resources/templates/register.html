@@ -22,7 +22,7 @@
 								<h2 style="text-align: center;">
 									Welcome To 
 								</h2>
-								<form action="/saveUser" method="post" enctype="multipart/form-data">
+								<form action="/saveUser" method="post" enctype="multipart/form-data" id="userRegister"  novalidate>
 									<h1>Registration😊</h1>
                                   
                                   <th:block th:if="${session.succMsg}">
@@ -56,7 +56,7 @@
 											required> <i class="fa-solid fa-location-dot"></i>
 									</div>
 									<div class="input-box">
-										<input type="password" placeholder="Password" name="password"
+										<input type="password" placeholder="Password" name="password" id="pass"
 											required> <i class="fa-solid fa-lock"></i>
 									</div>
 									
