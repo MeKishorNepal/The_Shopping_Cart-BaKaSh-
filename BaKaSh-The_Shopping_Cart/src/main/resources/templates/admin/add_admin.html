@@ -23,7 +23,7 @@
 								<h2 style="text-align: center;">
 									Welcome To 
 								</h2>
-								<form action="/admin/save-admin" method="post" enctype="multipart/form-data">
+								<form action="/admin/save-admin" method="post" enctype="multipart/form-data" id="adminPageValidation" novalidate>
 									<h1 class="text-center">Add Admin Page😊</h1>
                                   
                                   <th:block th:if="${session.succMsg}">
@@ -71,7 +71,7 @@
 									<div class="row">
                                    <div class="col">
 									<div class="input-box">
-										<input type="password" placeholder="Password" name="password"
+										<input type="password" placeholder="Password" name="password" id="pass"
 											required> <i class="fa-solid fa-lock"></i>
 									</div>
 									</div>

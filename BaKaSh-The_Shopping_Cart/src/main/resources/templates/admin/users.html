@@ -28,9 +28,9 @@
 							
 							
 				</div>
-				<div class="card-body">
-					<table class="table">
-						<thead>
+				<div class="card-body ">
+					<table class="table ">
+						<thead class="table-dark">
 							<tr>
 								<th scope="col">Sl No</th>
 								<th scope="col">Profile</th>
@@ -55,8 +55,8 @@
 								<td>[[${u.isEnable}]]</td>
 								
 								<td><a th:href="@{'/admin/updateSts?status=true&id='+${u.id}}+'&type='+${userType}" class="btn btn-sm btn-primary"> Active</a>
-										
-							   <td><a th:href="@{'/admin/updateSts?status=false&id='+${u.id}}+'&type='+${userType}" class="btn btn-sm btn-primary">Inactive</a>
+							   <a th:href="@{'/admin/updateSts?status=false&id='+${u.id}}+'&type='+${userType}" class="btn btn-sm btn-primary">Inactive</a>
+							   </td>
 							</tr>
 
 						</tbody>
